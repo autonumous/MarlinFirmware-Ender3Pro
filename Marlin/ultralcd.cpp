@@ -192,8 +192,8 @@ uint16_t max_display_update_time = 0;
     #if ENABLED(PRINTCOUNTER)
       void lcd_info_stats_menu();
     #endif
-    void lcd_info_thermistors_menu();
-    void lcd_info_board_menu();
+    //void lcd_info_thermistors_menu();
+    //void lcd_info_board_menu();
     void lcd_info_menu();
   #endif // LCD_INFO_MENU
 
@@ -4215,8 +4215,8 @@ void lcd_quick_feedback(const bool clear_buttons) {
       STATIC_ITEM(SHORT_BUILD_VERSION, true);                          // x.x.x-Branch
       STATIC_ITEM(STRING_DISTRIBUTION_DATE, true);                     // YYYY-MM-DD HH:MM
       STATIC_ITEM(MACHINE_NAME, true);                                 // My3DPrinter
-      STATIC_ITEM(WEBSITE_URL, true);                                  // www.my3dprinter.com
-      STATIC_ITEM(MSG_INFO_EXTRUDERS ": " STRINGIFY(EXTRUDERS), true); // Extruders: 2
+      //STATIC_ITEM(WEBSITE_URL, true);                                  // www.my3dprinter.com
+      //STATIC_ITEM(MSG_INFO_EXTRUDERS ": " STRINGIFY(EXTRUDERS), true); // Extruders: 2
       #if ENABLED(AUTO_BED_LEVELING_3POINT)
         STATIC_ITEM(MSG_3POINT_LEVELING, true);                        // 3-Point Leveling
       #elif ENABLED(AUTO_BED_LEVELING_LINEAR)
@@ -4240,8 +4240,8 @@ void lcd_quick_feedback(const bool clear_buttons) {
       START_MENU();
       MENU_BACK(MSG_MAIN);
       MENU_ITEM(submenu, MSG_INFO_PRINTER_MENU, lcd_info_printer_menu);        // Printer Info >
-      MENU_ITEM(submenu, MSG_INFO_BOARD_MENU, lcd_info_board_menu);            // Board Info >
-      MENU_ITEM(submenu, MSG_INFO_THERMISTOR_MENU, lcd_info_thermistors_menu); // Thermistors >
+      //MENU_ITEM(submenu, MSG_INFO_BOARD_MENU, lcd_info_board_menu);            // Board Info >
+      //MENU_ITEM(submenu, MSG_INFO_THERMISTOR_MENU, lcd_info_thermistors_menu); // Thermistors >
       #if ENABLED(PRINTCOUNTER)
         MENU_ITEM(submenu, MSG_INFO_STATS_MENU, lcd_info_stats_menu);          // Printer Statistics >
       #endif

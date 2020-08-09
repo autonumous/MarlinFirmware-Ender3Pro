@@ -35,20 +35,20 @@
   /**
    * Marlin release version identifier
    */
-  #define SHORT_BUILD_VERSION "11x"
+  #define SHORT_BUILD_VERSION "119"
 
   /**
    * Verbose version identifier which should contain a reference to the location
    * from where the binary was downloaded or the source code was compiled.
    */
-  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION //"bugfix-1.1.x"
+  #define DETAILED_BUILD_VERSION  SHORT_BUILD_VERSION  "bf_PB"  //"bugfix-1.1.x"
 
   /**
    * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
    * here we define this default string as the date where the latest release
    * version was tagged.
    */
-  #define STRING_DISTRIBUTION_DATE "200510"
+  #define STRING_DISTRIBUTION_DATE "200728"
 
   /**
    * Required minimum Configuration.h and Configuration_adv.h file versions.
