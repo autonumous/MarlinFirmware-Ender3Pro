@@ -48,7 +48,7 @@
    * here we define this default string as the date where the latest release
    * version was tagged.
    */
-  #define STRING_DISTRIBUTION_DATE "200728"
+  #define STRING_DISTRIBUTION_DATE "200809"
 
   /**
    * Required minimum Configuration.h and Configuration_adv.h file versions.
@@ -70,7 +70,7 @@
   /**
    * Defines a generic printer name to be output to the LCD after booting Marlin.
    */
-  #define MACHINE_NAME "3NDR"
+  #define MACHINE_NAME "NDR3P"
 
   /**
    * The SOURCE_CODE_URL is the location where users will find the Marlin Source
