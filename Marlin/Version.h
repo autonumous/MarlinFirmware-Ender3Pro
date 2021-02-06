@@ -34,7 +34,7 @@
  * Verbose version identifier which should contain a reference to the location
  * from where the binary was downloaded or the source code was compiled.
  */
-#define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " - Ender 3 Pro - BTT SKR Mini E3 V2 Board - LTouch & RunOut"  
+#define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " - Ender 3 Pro - BTT SKR Mini E3 V2 Board - BLTouch & RunOut"  
 
 /**
  * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
@@ -42,7 +42,7 @@
  * version was tagged.
  */
 //#define STRING_DISTRIBUTION_DATE "2021-02-06"
-#define STRING_DISTRIBUTION_DATE __DATE__ __TIME__
+#define STRING_DISTRIBUTION_DATE __DATE__ "-" __TIME__
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
