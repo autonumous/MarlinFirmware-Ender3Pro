@@ -500,9 +500,16 @@
 
     // from Ender-3 pro conf for 1.1.6.1 conf
     // Stock CR-10S Hotend fan 100%
-    #define  DEFAULT_Kp 20.84
-    #define  DEFAULT_Ki 1.96
-    #define  DEFAULT_Kd 55.47
+    //#define  DEFAULT_Kp 20.84
+    //#define  DEFAULT_Ki 1.96
+    //#define  DEFAULT_Kd 55.47
+
+    // my values
+    #define  DEFAULT_Kp 20.7
+    #define  DEFAULT_Ki 1.32
+    #define  DEFAULT_Kd 80.9
+
+
 
   #endif
 #endif // PIDTEMP
@@ -541,9 +548,14 @@
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
 
   // Creality Ender-3 Pro
-  #define DEFAULT_bedKp 50.71
-  #define DEFAULT_bedKi 9.88
-  #define DEFAULT_bedKd 173.43
+  //#define DEFAULT_bedKp 50.71
+  //#define DEFAULT_bedKi 9.88
+  //#define DEFAULT_bedKd 173.43
+
+  // my values
+  #define DEFAULT_bedKp 45.3
+  #define DEFAULT_bedKi 7.54
+  #define DEFAULT_bedKd 181.7
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -1072,7 +1084,7 @@
 #define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
 #define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
-//#define Z_AFTER_PROBING           5 // Z position after probing is done
+#define Z_AFTER_PROBING           20 // Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
@@ -1176,10 +1188,10 @@
 #define Y_BED_SIZE 220 //234.5// without front cap.  220 with cap.  235
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
+#define X_MIN_POS -1 //0
 #define Y_MIN_POS -15 //HeroMe Gen5 Mount
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
+#define X_MAX_POS 249 //X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 250
 
@@ -1459,7 +1471,7 @@
 
 #if ENABLED(LEVEL_BED_CORNERS)
   //#define LEVEL_CORNERS_INSET_LFRB { 30, 30, 60, 30 } // (mm) Left, Front, Right, Back insets
-  #define LEVEL_CORNERS_INSET_LFRB { 27, 34, 34, 30 } // (mm) Left, Front, Right, Back insets
+  #define LEVEL_CORNERS_INSET_LFRB { 27, 34, 43, 30 } // (mm) Left, Front, Right, Back insets
   #define LEVEL_CORNERS_HEIGHT      0.0   // (mm) Z height of nozzle at leveling points
   #define LEVEL_CORNERS_Z_HOP       4.0   // (mm) Z height of nozzle between leveling points
   //#define LEVEL_CENTER_TOO              // Move to the center after the last corner
