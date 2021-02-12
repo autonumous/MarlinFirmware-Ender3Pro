@@ -819,7 +819,7 @@
 
   // Define positions for probe points.
   //#define TRAMMING_POINT_XY { {  30, 30 }, { 150,  30 }, { 150, 180 }, { 30, 180 } }
-    #define TRAMMING_POINT_XY { {  27, 34 }, { 160,  34 }, { 150, 203}, { 27, 203 } }
+    #define TRAMMING_POINT_XY { {  27, 34 }, { 192,  34 }, { 192, 203}, { 27, 203 } }
 
   // Define position names for probe points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"
@@ -1793,7 +1793,7 @@
  * Repeatedly attempt G29 leveling until it succeeds.
  * Stop after G29_MAX_RETRIES attempts.
  */
-#define G29_RETRY_AND_RECOVER
+//#define G29_RETRY_AND_RECOVER
 #if ENABLED(G29_RETRY_AND_RECOVER)
   #define G29_MAX_RETRIES 4
   #define G29_HALT_ON_FAILURE
