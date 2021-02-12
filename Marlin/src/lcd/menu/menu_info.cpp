@@ -240,9 +240,8 @@ void menu_info_board() {
     STATIC_ITEM(MSG_MARLIN, SS_DEFAULT|SS_INVERT);              // Marlin
     STATIC_ITEM_P(PSTR(SHORT_BUILD_VERSION));                   // x.x.x-Branch
     STATIC_ITEM_P(PSTR(STRING_DISTRIBUTION_DATE));              // YYYY-MM-DD HH:MM
-    STATIC_ITEM_P(PSTR("Compiled:"));                           // Compile Date/Time __DATE__ "-" __TIME__
-    STATIC_ITEM_P(PSTR("          " __DATE__));                 // FEB 12 2021
-    STATIC_ITEM_P(PSTR("             " __TIME__));              //    01:02:03
+    STATIC_ITEM_P(PSTR("Compiled:           "));                // Compiled:
+    STATIC_ITEM_P(PSTR(__DATE__ "  " __TIME__));                // FEB 12 2021  01:02:03
     STATIC_ITEM_P(PSTR(MACHINE_NAME));                          // My3DPrinter
     STATIC_ITEM_P(PSTR(WEBSITE_URL));                           // www.my3dprinter.com
     PSTRING_ITEM(MSG_INFO_EXTRUDERS, STRINGIFY(EXTRUDERS), SS_CENTER); // Extruders: 2
