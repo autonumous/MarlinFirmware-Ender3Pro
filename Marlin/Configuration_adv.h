@@ -1118,7 +1118,7 @@
   #endif
 
   // BACK menu items keep the highlight at the top
-  #define TURBO_BACK_MENU_ITEM
+  //#define TURBO_BACK_MENU_ITEM
 
   // Add a mute option to the LCD menu
   #define SOUND_MENU_ITEM
