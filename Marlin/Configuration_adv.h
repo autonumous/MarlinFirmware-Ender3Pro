@@ -819,7 +819,7 @@
 
   // Define positions for probe points.
   //#define TRAMMING_POINT_XY { {  30, 30 }, { 150,  30 }, { 150, 180 }, { 30, 180 } }
-    #define TRAMMING_POINT_XY { {  27, 34 }, { 192,  34 }, { 192, 203}, { 27, 203 } }
+    #define TRAMMING_POINT_XY { {  27, 34 }, { 190,  34 }, { 190, 203}, { 27, 203 } }
 
   // Define position names for probe points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"
@@ -1780,9 +1780,12 @@
 #if EITHER(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL)
   // Override the mesh area if the automatic (max) area is too large
   //#define MESH_MIN_X MESH_INSET
-  //#define MESH_MIN_Y MESH_INSET
+  #define MESH_MIN_X (X_MIN_POS + MESH_INSET)  // bed starts at -1
+  //#define MESH_MIN_Y MESH_INSET 
   //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
+  #define MESH_MAX_X  (X_MIN_POS + X_BED_SIZE) - (MESH_INSET)
   //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
+  #define MESH_MAX_Y Y_BED_SIZE
 #endif
 
 #if BOTH(AUTO_BED_LEVELING_UBL, EEPROM_SETTINGS)
@@ -2623,7 +2626,7 @@
    * STEALTHCHOP_(XY|Z|E) must be enabled to use HYBRID_THRESHOLD.
    * M913 X/Y/Z/E to live tune the setting
    */
-  #define HYBRID_THRESHOLD
+  //#define HYBRID_THRESHOLD
 
   #define X_HYBRID_THRESHOLD     127  // [mm/s]
   #define X2_HYBRID_THRESHOLD    100
