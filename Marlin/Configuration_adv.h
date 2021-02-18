@@ -379,7 +379,7 @@
  */
 #define HOTEND_IDLE_TIMEOUT
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
-  #define HOTEND_IDLE_TIMEOUT_SEC (5*60)    // (seconds) Time without extruder movement to trigger protection
+  #define HOTEND_IDLE_TIMEOUT_SEC (1*60)    // (seconds) Time without extruder movement to trigger protection
   #define HOTEND_IDLE_MIN_TRIGGER    60     // (°C) Minimum temperature to enable hotend protection
   #define HOTEND_IDLE_NOZZLE_TARGET  0     // (°C) Safe temperature for the nozzle after timeout
   #define HOTEND_IDLE_BED_TARGET     0      // (°C) Safe temperature for the bed after timeout
@@ -1975,19 +1975,19 @@
 
 // The number of linear moves that can be in the planner at once.
 // The value of BLOCK_BUFFER_SIZE must be a power of 2 (e.g. 8, 16, 32)
-#if BOTH(SDSUPPORT, DIRECT_STEPPING)
-  #define BLOCK_BUFFER_SIZE  32//8
+#if BOTH(SDSUPPORT, DIRECT_STEPPING)     // Advanced OK P value
+  #define BLOCK_BUFFER_SIZE  8
 #elif ENABLED(SDSUPPORT)
   #define BLOCK_BUFFER_SIZE 64 //16
 #else
-  #define BLOCK_BUFFER_SIZE 64 //16
+  #define BLOCK_BUFFER_SIZE 16
 #endif
 
 // @section serial
 
 // The ASCII buffer for serial input
 #define MAX_CMD_SIZE 96
-#define BUFSIZE 32
+#define BUFSIZE 32    // Advanced OK B value
 
 // Transmission to Host Buffer Size
 // To save 386 bytes of PROGMEM (and TX_BUFFER_SIZE+3 bytes of RAM) set to 0.
@@ -2044,7 +2044,7 @@
 
 // Printrun may have trouble receiving long strings all at once.
 // This option inserts short delays between lines of serial output.
-//define SERIAL_OVERRUN_PROTECTION
+#define SERIAL_OVERRUN_PROTECTION
 
 // For serial echo, the number of digits after the decimal point
 #define SERIAL_FLOAT_PRECISION 4
@@ -2195,7 +2195,7 @@
                                                   //   For direct drive, the full length of the nozzle.
   //#define ADVANCED_PAUSE_CONTINUOUS_PURGE       // Purge continuously up to the purge length until interrupted.
   #define ADVANCED_PAUSE_PURGE_FEEDRATE        3  // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
-  #define ADVANCED_PAUSE_PURGE_LENGTH         30  // (mm) Length to extrude after loading.
+  #define ADVANCED_PAUSE_PURGE_LENGTH         50  // (mm) Length to extrude after loading.
                                                   //   Set to 0 for manual extrusion.
                                                   //   Filament can be extruded repeatedly from the Filament Change menu
                                                   //   until extrusion is consistent, and to purge old filament.
@@ -3751,4 +3751,4 @@
 #define PINS_DEBUGGING
 
 // Enable Marlin dev mode which adds some special commands
-//#define MARLIN_DEV_MODE
+#define MARLIN_DEV_MODE
