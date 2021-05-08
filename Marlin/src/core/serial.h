@@ -62,11 +62,11 @@ extern uint8_t marlin_debug_flags;
 //
 // Serial redirection
 //
-// Step 1: Find what's the first serial leaf
+// Step 1: Find out what the first serial leaf is
 #if BOTH(HAS_MULTI_SERIAL, SERIAL_CATCHALL)
-  #define _SERIAL_LEAF_1  MYSERIAL
+  #define _SERIAL_LEAF_1 MYSERIAL
 #else
-  #define _SERIAL_LEAF_1  MYSERIAL1
+  #define _SERIAL_LEAF_1 MYSERIAL1
 #endif
 
 // Hook Meatpack if it's enabled on the first leaf
@@ -78,7 +78,8 @@ extern uint8_t marlin_debug_flags;
   #define SERIAL_LEAF_1 _SERIAL_LEAF_1
 #endif
 
-// Step 2: For multiserial, handle the second serial port as well
+// Step 2: For multiserial wrap all serial ports in a single
+//         interface with the ability to output to multiple serial ports.
 #if HAS_MULTI_SERIAL
   #define _PORT_REDIRECT(n,p) REMEMBER(n,multiSerial.portMask,p)
   #define _PORT_RESTORE(n,p)  RESTORE(n)
@@ -86,17 +87,16 @@ extern uint8_t marlin_debug_flags;
   // If we have a catchall, use that directly
   #ifdef SERIAL_CATCHALL
     #define _SERIAL_LEAF_2 SERIAL_CATCHALL
+  #elif HAS_ETHERNET
+    typedef ConditionalSerial<decltype(MYSERIAL2)> SerialLeafT2;  // We need to create an instance here
+    extern SerialLeafT2 msSerial2;
+    #define _SERIAL_LEAF_2 msSerial2
   #else
-    #if HAS_ETHERNET
-      // We need to create an instance here
-      typedef ConditionalSerial<decltype(MYSERIAL2)> SerialLeafT2;
-      extern SerialLeafT2 msSerial2;
-      #define _SERIAL_LEAF_2 msSerial2
-    #else
-      // Don't create a useless instance here, directly use the existing instance
-      #define _SERIAL_LEAF_2 MYSERIAL2
-    #endif
+    #define _SERIAL_LEAF_2 MYSERIAL2 // Don't create a useless instance here, directly use the existing instance
   #endif
+
+  // Nothing complicated here
+  #define _SERIAL_LEAF_3 MYSERIAL3
 
   // Hook Meatpack if it's enabled on the second leaf
   #if ENABLED(MEATPACK_ON_SERIAL_PORT_2)
@@ -107,7 +107,23 @@ extern uint8_t marlin_debug_flags;
     #define SERIAL_LEAF_2 _SERIAL_LEAF_2
   #endif
 
-  typedef MultiSerial<decltype(SERIAL_LEAF_1), decltype(SERIAL_LEAF_2), 0> SerialOutputT;
+  // Hook Meatpack if it's enabled on the third leaf
+  #if ENABLED(MEATPACK_ON_SERIAL_PORT_3)
+    typedef MeatpackSerial<decltype(_SERIAL_LEAF_3)> SerialLeafT3;
+    extern SerialLeafT3 mpSerial3;
+    #define SERIAL_LEAF_3 mpSerial3
+  #else
+    #define SERIAL_LEAF_3 _SERIAL_LEAF_3
+  #endif
+
+  #define __S_MULTI(N) decltype(SERIAL_LEAF_##N),
+  #define _S_MULTI(N) __S_MULTI(N)
+
+  typedef MultiSerial< REPEAT_1(NUM_SERIAL, _S_MULTI) 0> SerialOutputT;
+
+  #undef __S_MULTI
+  #undef _S_MULTI
+
   extern SerialOutputT        multiSerial;
   #define SERIAL_IMPL         multiSerial
 #else
@@ -144,9 +160,10 @@ void SERIAL_ECHO(T x) { SERIAL_IMPL.print(x); }
 typedef struct SerialChar { char c; SerialChar(char n) : c(n) { } } serial_char_t;
 inline void SERIAL_ECHO(serial_char_t x) { SERIAL_IMPL.write(x.c); }
 #define AS_CHAR(C) serial_char_t(C)
+#define AS_DIGIT(C) AS_CHAR('0' + (C))
 
 // SERIAL_ECHO_F prints a floating point value with optional precision
-inline void SERIAL_ECHO_F(EnsureDouble x, int digit = 2) { SERIAL_IMPL.print(x, digit); }
+inline void SERIAL_ECHO_F(EnsureDouble x, int digit=2) { SERIAL_IMPL.print(x, digit); }
 
 template <typename T>
 void SERIAL_ECHOLN(T x) { SERIAL_IMPL.println(x); }
@@ -387,7 +404,7 @@ void serialprint_truefalse(const bool tf);
 void serial_spaces(uint8_t count);
 
 void print_bin(const uint16_t val);
-void print_xyz(const float &x, const float &y, const float &z, PGM_P const prefix=nullptr, PGM_P const suffix=nullptr);
+void print_xyz(const_float_t x, const_float_t y, const_float_t z, PGM_P const prefix=nullptr, PGM_P const suffix=nullptr);
 
 inline void print_xyz(const xyz_pos_t &xyz, PGM_P const prefix=nullptr, PGM_P const suffix=nullptr) {
   print_xyz(xyz.x, xyz.y, xyz.z, prefix, suffix);
