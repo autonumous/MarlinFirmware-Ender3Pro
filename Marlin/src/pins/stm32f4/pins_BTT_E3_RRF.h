@@ -55,7 +55,7 @@
   #define X2_DIR_PIN                   FPC10_PIN  // X2DIR
   #define X2_SERIAL_TX_PIN             FPC12_PIN  // X2UART
   #define X2_SERIAL_RX_PIN             FPC12_PIN  // X2UART
-  #if X_HOME_TO_MIN
+  #if X_HOME_DIR < 0
     #define X_MAX_PIN                   FPC2_PIN  // X2-STOP
   #else
     #define X_MIN_PIN                   FPC2_PIN  // X2-STOP

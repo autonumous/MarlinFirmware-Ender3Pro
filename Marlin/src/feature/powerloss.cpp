@@ -375,7 +375,7 @@ void PrintJobRecovery::resume() {
 
   gcode.process_subcommands_now_P(PSTR("G92.9E0")); // Reset E to 0
 
-  #if Z_HOME_TO_MAX
+  #if Z_HOME_DIR > 0
 
     float z_now = z_raised;
 

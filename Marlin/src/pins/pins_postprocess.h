@@ -385,7 +385,7 @@
 // Assign endstop pins for boards with only 3 connectors
 //
 #ifdef X_STOP_PIN
-  #if X_HOME_TO_MIN
+  #if X_HOME_DIR < 0
     #define X_MIN_PIN X_STOP_PIN
     #ifndef X_MAX_PIN
       #define X_MAX_PIN -1
@@ -396,14 +396,14 @@
       #define X_MIN_PIN -1
     #endif
   #endif
-#elif X_HOME_TO_MIN
+#elif X_HOME_DIR < 0
   #define X_STOP_PIN X_MIN_PIN
 #else
   #define X_STOP_PIN X_MAX_PIN
 #endif
 
 #ifdef Y_STOP_PIN
-  #if Y_HOME_TO_MIN
+  #if Y_HOME_DIR < 0
     #define Y_MIN_PIN Y_STOP_PIN
     #ifndef Y_MAX_PIN
       #define Y_MAX_PIN -1
@@ -414,14 +414,14 @@
       #define Y_MIN_PIN -1
     #endif
   #endif
-#elif Y_HOME_TO_MIN
+#elif Y_HOME_DIR < 0
   #define Y_STOP_PIN Y_MIN_PIN
 #else
   #define Y_STOP_PIN Y_MAX_PIN
 #endif
 
 #ifdef Z_STOP_PIN
-  #if Z_HOME_TO_MIN
+  #if Z_HOME_DIR < 0
     #define Z_MIN_PIN Z_STOP_PIN
     #ifndef Z_MAX_PIN
       #define Z_MAX_PIN -1
@@ -432,7 +432,7 @@
       #define Z_MIN_PIN -1
     #endif
   #endif
-#elif Z_HOME_TO_MIN
+#elif Z_HOME_DIR < 0
   #define Z_STOP_PIN Z_MIN_PIN
 #else
   #define Z_STOP_PIN Z_MAX_PIN
@@ -489,34 +489,34 @@
   #undef Z_MIN_PIN
   #define Z_MIN_PIN          -1
 #endif
-#if DISABLED(X_DUAL_ENDSTOPS) || X_HOME_TO_MAX
+#if DISABLED(X_DUAL_ENDSTOPS) || X_HOME_DIR > 0
   #undef X2_MIN_PIN
 #endif
-#if DISABLED(X_DUAL_ENDSTOPS) || X_HOME_TO_MIN
+#if DISABLED(X_DUAL_ENDSTOPS) || X_HOME_DIR < 0
   #undef X2_MAX_PIN
 #endif
-#if DISABLED(Y_DUAL_ENDSTOPS) || Y_HOME_TO_MAX
+#if DISABLED(Y_DUAL_ENDSTOPS) || Y_HOME_DIR > 0
   #undef Y2_MIN_PIN
 #endif
-#if DISABLED(Y_DUAL_ENDSTOPS) || Y_HOME_TO_MIN
+#if DISABLED(Y_DUAL_ENDSTOPS) || Y_HOME_DIR < 0
   #undef Y2_MAX_PIN
 #endif
-#if DISABLED(Z_MULTI_ENDSTOPS) || Z_HOME_TO_MAX
+#if DISABLED(Z_MULTI_ENDSTOPS) || Z_HOME_DIR > 0
   #undef Z2_MIN_PIN
 #endif
-#if DISABLED(Z_MULTI_ENDSTOPS) || Z_HOME_TO_MIN
+#if DISABLED(Z_MULTI_ENDSTOPS) || Z_HOME_DIR < 0
   #undef Z2_MAX_PIN
 #endif
-#if DISABLED(Z_MULTI_ENDSTOPS) || NUM_Z_STEPPER_DRIVERS < 3 || Z_HOME_TO_MAX
+#if DISABLED(Z_MULTI_ENDSTOPS) || NUM_Z_STEPPER_DRIVERS < 3 || Z_HOME_DIR > 0
   #undef Z3_MIN_PIN
 #endif
-#if DISABLED(Z_MULTI_ENDSTOPS) || NUM_Z_STEPPER_DRIVERS < 3 || Z_HOME_TO_MIN
+#if DISABLED(Z_MULTI_ENDSTOPS) || NUM_Z_STEPPER_DRIVERS < 3 || Z_HOME_DIR < 0
   #undef Z3_MAX_PIN
 #endif
-#if DISABLED(Z_MULTI_ENDSTOPS) || NUM_Z_STEPPER_DRIVERS < 4 || Z_HOME_TO_MAX
+#if DISABLED(Z_MULTI_ENDSTOPS) || NUM_Z_STEPPER_DRIVERS < 4 || Z_HOME_DIR > 0
   #undef Z4_MIN_PIN
 #endif
-#if DISABLED(Z_MULTI_ENDSTOPS) || NUM_Z_STEPPER_DRIVERS < 4 || Z_HOME_TO_MIN
+#if DISABLED(Z_MULTI_ENDSTOPS) || NUM_Z_STEPPER_DRIVERS < 4 || Z_HOME_DIR < 0
   #undef Z4_MAX_PIN
 #endif
 
