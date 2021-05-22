@@ -530,9 +530,9 @@
     //#define  DEFAULT_Kd 55.47
 
     // my values
-    #define  DEFAULT_Kp 20.7
-    #define  DEFAULT_Ki 1.32
-    #define  DEFAULT_Kd 80.9
+    #define  DEFAULT_Kp 21.3410 //20.7
+    #define  DEFAULT_Ki 1.3375 //1.32
+    #define  DEFAULT_Kd 85.1264 //80.9
 
 
 
@@ -578,9 +578,9 @@
   //#define DEFAULT_bedKd 173.43
 
   // my values
-  #define DEFAULT_bedKp 45.3
-  #define DEFAULT_bedKi 7.54
-  #define DEFAULT_bedKd 181.7
+  #define DEFAULT_bedKp 103.6972 //45.3
+  #define DEFAULT_bedKi 17.9640 //7.54
+  #define DEFAULT_bedKd 17.9640 //181.7
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -827,7 +827,7 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 139.85 }  //Bondtech (Fake) dual extruder - Metal
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 141.26 }  //Bondtech (Fake) dual extruder - Metal
 
 /**
  * Default Max Feed Rate (mm/s)
