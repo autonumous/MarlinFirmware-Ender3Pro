@@ -3686,7 +3686,7 @@
  */
 
 // Custom Menu: Main Menu
-//#define CUSTOM_MENU_MAIN
+#define CUSTOM_MENU_MAIN
 #if ENABLED(CUSTOM_MENU_MAIN)
   //#define CUSTOM_MENU_MAIN_TITLE "Custom Commands"
   #define CUSTOM_MENU_MAIN_SCRIPT_DONE "M117 User Script Done"
@@ -3698,25 +3698,40 @@
   #define MAIN_MENU_ITEM_1_GCODE "G28\nG29 W"
   #define MAIN_MENU_ITEM_1_CONFIRM          // Show a confirmation dialog before this action
 
+  //#define MAIN_MENU_ITEM_2_DESC "Preheat for " PREHEAT_1_LABEL
+  //#define MAIN_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
+  //#define MAIN_MENU_ITEM_2_CONFIRM
+
   #define MAIN_MENU_ITEM_2_DESC "Preheat for " PREHEAT_1_LABEL
   #define MAIN_MENU_ITEM_2_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
   //#define MAIN_MENU_ITEM_2_CONFIRM
 
-  #define MAIN_MENU_ITEM_3_DESC "Preheat for " PREHEAT_2_LABEL
-  #define MAIN_MENU_ITEM_3_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
-  //#define MAIN_MENU_ITEM_3_CONFIRM
+  #define MAIN_MENU_ITEM_3_DESC "Heat Bed/Home/Level"
+  #define MAIN_MENU_ITEM_3_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nG28\nG29"
+  #define MAIN_MENU_ITEM_3_CONFIRM
 
-  #define MAIN_MENU_ITEM_4_DESC "Heat Bed/Home/Level"
-  #define MAIN_MENU_ITEM_4_GCODE "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG28\nG29"
+  #define MAIN_MENU_ITEM_4_DESC "Home & Info"
+  #define MAIN_MENU_ITEM_4_GCODE "G28\nM503"
   #define MAIN_MENU_ITEM_4_CONFIRM
-
-  #define MAIN_MENU_ITEM_5_DESC "Home & Info"
-  #define MAIN_MENU_ITEM_5_GCODE "G28\nM503"
+  
+  #define MAIN_MENU_ITEM_5_DESC "UBL set & Activate"
+  #define MAIN_MENU_ITEM_5_GCODE "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM190 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nG28\n G29 P1\nG29 P3\n G29 S1\n G29 F 10.0\n G29 A"
   #define MAIN_MENU_ITEM_5_CONFIRM
+//M140 S60 ; Warm bed to 60C.
+//M190 S60 ; Wait until bed is warm so we're more accurate.
+//G28 ; Home XYZ.
+//G29 P1 ; Do automated probing of the bed.
+//G29 P3 ; Fill in the rest.
+//G29 S1 ; Save UBL mesh points to EEPROM in Slot 1.
+//G29 F 10.0 ; Set Fade Height for correction at 10.0 mm.
+//G29 A ; Activate the UBL System.
+
+
+
 #endif
 
 // Custom Menu: Configuration Menu
-//#define CUSTOM_MENU_CONFIG
+#define CUSTOM_MENU_CONFIG
 #if ENABLED(CUSTOM_MENU_CONFIG)
   //#define CUSTOM_MENU_CONFIG_TITLE "Custom Commands"
   #define CUSTOM_MENU_CONFIG_SCRIPT_DONE "M117 Wireless Script Done"
@@ -3749,7 +3764,7 @@
  * User-defined buttons to run custom G-code.
  * Up to 25 may be defined.
  */
-//#define CUSTOM_USER_BUTTONS
+#define CUSTOM_USER_BUTTONS
 #if ENABLED(CUSTOM_USER_BUTTONS)
   //#define BUTTON1_PIN -1
   #if PIN_EXISTS(BUTTON1)
