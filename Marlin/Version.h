@@ -41,13 +41,12 @@
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
-//#define STRING_DISTRIBUTION_DATE "2021-07-27"
+//#define STRING_DISTRIBUTION_DATE "2021-07-31"
 //#define STRING_DISTRIBUTION_DATE __DATE__ "-" __TIME__
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-//#define MACHINE_NAME "3D Printer"
 #define MACHINE_NAME "Ender-3 Pro"
 
 /**
