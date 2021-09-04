@@ -276,7 +276,6 @@
  *                ------                                     ------
  *                 EXP1                                       EXP2
  */
-
 #define EXP1_03_PIN                         PD10
 #define EXP1_04_PIN                         PD11
 #define EXP1_05_PIN                         PE15
@@ -390,7 +389,7 @@
     #if SD_CONNECTION_IS(ONBOARD)
       #define FORCE_SOFT_SPI
     #endif
-	//#define LCD_SCREEN_ROT_180
+    //#define LCD_SCREEN_ROT_180
 
   #else                                           // !MKS_MINI_12864
 
