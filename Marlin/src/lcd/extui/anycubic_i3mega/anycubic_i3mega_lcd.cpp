@@ -38,8 +38,8 @@
 #define SEND(x)           send(x)
 #define SENDLINE(x)       sendLine(x)
 #if ENABLED(ANYCUBIC_LCD_DEBUG)
-  #define SENDLINE_DBG_PGM(x,y)       (sendLine_P(PSTR(x)), SERIAL_ECHOLNPGM(y))
-  #define SENDLINE_DBG_PGM_VAL(x,y,z) (sendLine_P(PSTR(x)), SERIAL_ECHOPGM(y), SERIAL_ECHOLN(z))
+  #define SENDLINE_DBG_PGM(x,y)       do{ sendLine_P(PSTR(x)); SERIAL_ECHOLNPGM(y); }while(0)
+  #define SENDLINE_DBG_PGM_VAL(x,y,z) do{ sendLine_P(PSTR(x)); SERIAL_ECHOLNPGM(y, z); }while(0)
 #else
   #define SENDLINE_DBG_PGM(x,y)       sendLine_P(PSTR(x))
   #define SENDLINE_DBG_PGM_VAL(x,y,z) sendLine_P(PSTR(x))
@@ -143,7 +143,7 @@ void AnycubicTFTClass::OnKillTFT() {
 
 void AnycubicTFTClass::OnSDCardStateChange(bool isInserted) {
   #if ENABLED(ANYCUBIC_LCD_DEBUG)
-    SERIAL_ECHOLNPAIR("TFT Serial Debug: OnSDCardStateChange event triggered...", isInserted);
+    SERIAL_ECHOLNPGM("TFT Serial Debug: OnSDCardStateChange event triggered...", isInserted);
   #endif
   DoSDCardStateCheck();
 }
@@ -164,7 +164,7 @@ void AnycubicTFTClass::OnFilamentRunout() {
 
 void AnycubicTFTClass::OnUserConfirmRequired(const char * const msg) {
   #if ENABLED(ANYCUBIC_LCD_DEBUG)
-    SERIAL_ECHOLNPAIR("TFT Serial Debug: OnUserConfirmRequired triggered... ", msg);
+    SERIAL_ECHOLNPGM("TFT Serial Debug: OnUserConfirmRequired triggered... ", msg);
   #endif
 
   #if ENABLED(SDSUPPORT)
@@ -557,7 +557,7 @@ void AnycubicTFTClass::GetCommandFromTFT() {
 
         #if ENABLED(ANYCUBIC_LCD_DEBUG)
           if ((a_command > 7) && (a_command != 20))   // No debugging of status polls, please!
-            SERIAL_ECHOLNPAIR("TFT Serial Command: ", TFTcmdbuffer[TFTbufindw]);
+            SERIAL_ECHOLNPGM("TFT Serial Command: ", TFTcmdbuffer[TFTbufindw]);
         #endif
 
         switch (a_command) {
