@@ -990,7 +990,7 @@
 
   // Define positions for probe points.
   //#define TRAMMING_POINT_XY { {  30, 30 }, { 150,  30 }, { 150, 180 }, { 30, 180 } }
-    #define TRAMMING_POINT_XY { {  27, 34 }, { 190,  34 }, { 190, 203}, { 27, 203 } }
+  #define TRAMMING_POINT_XY { {  27, 34 }, { 190,  34 }, { 190, 203}, { 27, 203 } }
 
   // Define position names for probe points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"
@@ -1422,7 +1422,7 @@
   //#define SD_DETECT_STATE HIGH
 
   //#define SD_IGNORE_AT_STARTUP            // Don't mount the SD card when starting up
-  //#define SDCARD_READONLY                   // Read-only SD card (to save over 2K of flash)
+  //#define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
 
   //#define GCODE_REPEAT_MARKERS            // Enable G-code M808 to set repeat markers and do looping
 

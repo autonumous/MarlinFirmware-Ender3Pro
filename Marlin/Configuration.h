@@ -1214,10 +1214,10 @@
 #define PROBING_MARGIN 1//10
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_FEEDRATE 10000//133*60) 
+#define XY_PROBE_FEEDRATE 10000//133*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (8*60)  //was Z_PROBE_SPEED_FAST
+#define Z_PROBE_FEEDRATE_FAST (8*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
@@ -1404,7 +1404,6 @@
 //#define K_HOME_DIR -1
 
 // @section machine
-
 
 // The size of the printable area
 #define X_BED_SIZE 231
@@ -1892,7 +1891,9 @@
 
 // @section temperature
 
-// Preheat Constants
+//
+// Preheat Constants - Up to 5 are supported without changes
+//
 #define PREHEAT_1_LABEL       "PLA"
 #define PREHEAT_1_TEMP_HOTEND 185
 #define PREHEAT_1_TEMP_BED     45
@@ -2205,7 +2206,6 @@
 //
 #define INDIVIDUAL_AXIS_HOMING_MENU
 #define INDIVIDUAL_AXIS_HOMING_SUBMENU
-
 
 //
 // SPEAKER/BUZZER
@@ -2843,6 +2843,10 @@
   //#define TOUCH_OFFSET_X        -43
   //#define TOUCH_OFFSET_Y        257
   //#define TOUCH_ORIENTATION TOUCH_LANDSCAPE
+
+  #if BOTH(TOUCH_SCREEN_CALIBRATION, EEPROM_SETTINGS)
+    #define TOUCH_CALIBRATION_AUTO_SAVE // Auto save successful calibration values to EEPROM
+  #endif
 
   #if ENABLED(TFT_COLOR_UI)
     //#define SINGLE_TOUCH_NAVIGATION
