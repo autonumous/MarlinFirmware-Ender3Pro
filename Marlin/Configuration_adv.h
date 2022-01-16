@@ -932,7 +932,7 @@
  * Z Steppers Auto-Alignment
  * Add the G34 command to align multiple Z steppers using a bed probe.
  */
-//#define Z_STEPPER_AUTO_ALIGN
+#define Z_STEPPER_AUTO_ALIGN
 #if ENABLED(Z_STEPPER_AUTO_ALIGN)
   // Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
   // If not defined, probe limits will be used.
@@ -994,7 +994,7 @@
 
   // Define positions for probe points.
   //#define TRAMMING_POINT_XY { {  30, 30 }, { 150,  30 }, { 150, 180 }, { 30, 180 } }
-  #define TRAMMING_POINT_XY { {  27, 34 }, { 190,  34 }, { 190, 203}, { 27, 203 } }
+  #define TRAMMING_POINT_XY { {  27, 34 }, { 195,  34 }, { 195, 203}, { 27, 203 } }   //x was 190
 
   // Define position names for probe points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"
@@ -3739,7 +3739,7 @@
 /**
  * Auto-report position with M154 S<seconds>
  */
-//#define AUTO_REPORT_POSITION
+#define AUTO_REPORT_POSITION
 
 /**
  * Include capabilities in M115 output

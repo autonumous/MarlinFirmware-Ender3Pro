@@ -954,7 +954,7 @@
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 141.26 }  //Bondtech (Fake) dual extruder - Metal
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 145.63 }  //Bondtech (Fake) dual extruder - Metal
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1539,7 +1539,7 @@
   // After a runout is detected, continue printing this length of filament
   // before executing the runout script. Useful for a sensor at the end of
   // a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
-  #define FILAMENT_RUNOUT_DISTANCE_MM 25
+  #define FILAMENT_RUNOUT_DISTANCE_MM 40
 
   #ifdef FILAMENT_RUNOUT_DISTANCE_MM
     // Enable this option to use an encoder disc that toggles the runout pin
@@ -1943,7 +1943,7 @@
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
-  #define NOZZLE_PARK_POINT { (X_MIN_POS + 10), (Y_MAX_POS - 10), 20 }
+  #define NOZZLE_PARK_POINT { (X_MAX_POS - 10), (Y_MIN_POS + 10), 20 }
   //#define NOZZLE_PARK_X_ONLY          // X move only is required to park
   //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance
