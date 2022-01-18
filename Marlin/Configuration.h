@@ -954,7 +954,7 @@
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 145.63 }  //Bondtech (Fake) dual extruder - Metal
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 145.63 }  //with amazon petg changed to 145.63 , prev 141.26, //Bondtech (Fake) dual extruder - Metal
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1838,9 +1838,9 @@
 
 #if ENABLED(SKEW_CORRECTION)
   // Input all length measurements here:
-  #define XY_DIAG_AC 282 //141.00  //282.8427124746
-  #define XY_DIAG_BD 283.2//141.6 //282.8427124746
-  #define XY_SIDE_AD 199.6//99.8//200
+  #define XY_DIAG_AC 282.00 //141.00  //282.8427124746
+  #define XY_DIAG_BD 283.20 //141.6 //282.8427124746
+  #define XY_SIDE_AD 199.60 //99.8//200
 
   // Or, set the default skew factors directly here
   // to override the above measurements:
@@ -1848,11 +1848,11 @@
 
   #define SKEW_CORRECTION_FOR_Z
   #if ENABLED(SKEW_CORRECTION_FOR_Z)
-    #define XZ_DIAG_AC 282.8 //141.4 //282.8427124746
-    #define XZ_DIAG_BD 280.8 //140.4//282.8427124746
-    #define YZ_DIAG_AC 282.8 //141.4 // 282.8427124746
-    #define YZ_DIAG_BD 280 //140.0 //282.8427124746
-    #define YZ_SIDE_AD 200.2 //100.1 //200
+    #define XZ_DIAG_AC 282.80 //141.4 //282.8427124746
+    #define XZ_DIAG_BD 280.80 //140.4//282.8427124746
+    #define YZ_DIAG_AC 282.80 //141.4 // 282.8427124746
+    #define YZ_DIAG_BD 280.00 //140.0 //282.8427124746
+    #define YZ_SIDE_AD 200.20 //100.1 //200
     //#define XZ_SKEW_FACTOR 0.0
     //#define YZ_SKEW_FACTOR 0.0
   #endif
