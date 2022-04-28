@@ -261,7 +261,7 @@ typedef struct {
   };
   constexpr ena_mask_t linear_bits() { return _BV(NUM_AXES) - 1; }
   constexpr ena_mask_t e_bits() { return (_BV(EXTRUDERS) - 1) << NUM_AXES; }
-} axis_flags_t;
+} stepper_flags_t;
 
 // All the stepper enable pins
 constexpr pin_t ena_pins[] = {
@@ -329,7 +329,7 @@ class Stepper {
         #ifndef MOTOR_CURRENT_PWM_FREQUENCY
           #define MOTOR_CURRENT_PWM_FREQUENCY 31400
         #endif
-        #define MOTOR_CURRENT_COUNT NUM_AXES
+        #define MOTOR_CURRENT_COUNT 3
       #elif HAS_MOTOR_CURRENT_SPI
         static constexpr uint32_t digipot_count[] = DIGIPOT_MOTOR_CURRENT;
         #define MOTOR_CURRENT_COUNT COUNT(Stepper::digipot_count)
@@ -596,7 +596,7 @@ class Stepper {
       static void refresh_motor_power();
     #endif
 
-    static axis_flags_t axis_enabled;   // Axis stepper(s) ENABLED states
+    static stepper_flags_t axis_enabled;  // Axis stepper(s) ENABLED states
 
     static bool axis_is_enabled(const AxisEnum axis E_OPTARG(const uint8_t eindex=0)) {
       return TEST(axis_enabled.bits, INDEX_OF_AXIS(axis, eindex));
