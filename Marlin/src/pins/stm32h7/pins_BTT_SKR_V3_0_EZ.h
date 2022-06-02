@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2022 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -19,24 +19,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+#pragma once
 
-#include "../gcode.h"
+#define BOARD_INFO_NAME "BTT SKR V3 EZ"
 
-/**
- * M85: Set inactivity shutdown timer with parameter S<seconds>. To disable set zero (default)
- */
-void GcodeSuite::M85() {
-
-  if (parser.seen('S')) {
-    reset_stepper_timeout();
-    const millis_t ms = parser.value_millis_from_seconds();
-    #if LASER_SAFETY_TIMEOUT_MS > 0
-      if (ms && ms <= LASER_SAFETY_TIMEOUT_MS) {
-        SERIAL_ECHO_MSG("M85 timeout must be > ", MS_TO_SEC(LASER_SAFETY_TIMEOUT_MS + 999), " s for laser safety.");
-        return;
-      }
-    #endif
-    max_inactive_time = ms;
-  }
-
-}
+#include "pins_BTT_SKR_V3_0_common.h"
