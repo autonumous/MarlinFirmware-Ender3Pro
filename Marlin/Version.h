@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "bugfix-2.0.x (endr3)" 
+#define SHORT_BUILD_VERSION "bugfix-2.1.x (endr3)"
 
 /**
  * Verbose version identifier which should contain a reference to the location
@@ -41,7 +41,7 @@
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
-//#define STRING_DISTRIBUTION_DATE "2022-06-02"
+//#define STRING_DISTRIBUTION_DATE "2022-06-08"
 //#define STRING_DISTRIBUTION_DATE __DATE__ "-" __TIME__
 
 /**
