@@ -1032,7 +1032,8 @@
 
   // Define positions for probe points.
   //#define TRAMMING_POINT_XY { {  30, 30 }, { 150,  30 }, { 150, 180 }, { 30, 180 } }
-  #define TRAMMING_POINT_XY { {  27, 34 }, { 191,  34 }, { 191, 203}, { 27, 203 } }   //x was 190
+  #define TRAMMING_POINT_XY { {  27, 34 }, { 191,  34 }, { 191, 203}, { 27, 203 } }   
+  
 
   // Define position names for probe points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"
@@ -2763,7 +2764,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z)
-    #define Z_CURRENT       580
+    #define Z_CURRENT       725 //580 - increase with dual z
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
