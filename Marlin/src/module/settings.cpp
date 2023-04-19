@@ -1095,7 +1095,7 @@ void MarlinSettings::postprocess() {
     {
       _FIELD_TEST(bedPID);
       #if ENABLED(PIDTEMPBED)
-        const PID_t &pid = thermalManager.temp_bed.pid;
+        const auto &pid = thermalManager.temp_bed.pid;
         const raw_pid_t bed_pid = { pid.p(), pid.i(), pid.d() };
       #else
         const raw_pid_t bed_pid = { NAN, NAN, NAN };
@@ -1109,7 +1109,7 @@ void MarlinSettings::postprocess() {
     {
       _FIELD_TEST(chamberPID);
       #if ENABLED(PIDTEMPCHAMBER)
-        const PID_t &pid = thermalManager.temp_chamber.pid;
+        const auto &pid = thermalManager.temp_chamber.pid;
         const raw_pid_t chamber_pid = { pid.p(), pid.i(), pid.d() };
       #else
         const raw_pid_t chamber_pid = { NAN, NAN, NAN };
@@ -2494,7 +2494,7 @@ void MarlinSettings::postprocess() {
       #endif
 
       //
-      // Creality DWIN User Data
+      // DWIN User Data
       //
       #if ENABLED(DWIN_LCD_PROUI)
       {
@@ -2819,7 +2819,7 @@ void MarlinSettings::postprocess() {
         #endif
 
         #if ENABLED(DWIN_LCD_PROUI)
-          status = !BedLevelTools.meshvalidate();
+          status = !bedLevelTools.meshvalidate();
           if (status) {
             bedlevel.invalidate();
             LCD_MESSAGE(MSG_UBL_MESH_INVALID);
@@ -3271,7 +3271,7 @@ void MarlinSettings::reset() {
     #if ENABLED(DISTINCT_E_FACTORS)
       constexpr float linAdvanceK[] = ADVANCE_K;
       EXTRUDER_LOOP() {
-        const float a = linAdvanceK[_MAX(e, COUNT(linAdvanceK) - 1)];
+        const float a = linAdvanceK[_MAX(uint8_t(e), COUNT(linAdvanceK) - 1)];
         planner.extruder_advance_K[e] = a;
         TERN_(ADVANCE_K_EXTRA, other_extruder_advance_K[e] = a);
       }
