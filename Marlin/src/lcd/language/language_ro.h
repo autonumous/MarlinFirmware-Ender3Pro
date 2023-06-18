@@ -317,13 +317,13 @@ namespace Language_ro {
   LSTR MSG_LOAD_EEPROM                    = _UxGT("Load Settings");
   LSTR MSG_RESTORE_DEFAULTS               = _UxGT("Restore Defaults");
   LSTR MSG_INIT_EEPROM                    = _UxGT("Initialize EEPROM");
-  LSTR MSG_ERR_EEPROM_CRC                 = _UxGT("EEPROM CRC Error");
-  LSTR MSG_ERR_EEPROM_INDEX               = _UxGT("EEPROM Index Error");
-  LSTR MSG_ERR_EEPROM_VERSION             = _UxGT("EEPROM Version Error");
+  LSTR MSG_ERR_EEPROM_CRC                 = _UxGT("Err: EEPROM CRC");
+  LSTR MSG_ERR_EEPROM_SIZE                = _UxGT("Err: Mărimea EEPROM");
+  LSTR MSG_ERR_EEPROM_VERSION             = _UxGT("Err: Versiunea EEPROM");
   LSTR MSG_SETTINGS_STORED                = _UxGT("Settings Stored");
   LSTR MSG_MEDIA_UPDATE                   = _UxGT("Media Update");
   LSTR MSG_RESET_PRINTER                  = _UxGT("Reset Imprimanta");
-  LSTR MSG_REFRESH                        = LCD_STR_REFRESH  _UxGT("Refresh");
+  LSTR MSG_REFRESH                        = LCD_STR_REFRESH _UxGT("Refresh");
   LSTR MSG_INFO_SCREEN                    = _UxGT("Info Screen");
   LSTR MSG_PREPARE                        = _UxGT("Prepare");
   LSTR MSG_TUNE                           = _UxGT("Tune");
@@ -348,7 +348,7 @@ namespace Language_ro {
   LSTR MSG_STOP_PRINT                     = _UxGT("Stop Print");
   LSTR MSG_PRINTING_OBJECT                = _UxGT("Printing Object");
   LSTR MSG_CANCEL_OBJECT                  = _UxGT("Cancel Object");
-  LSTR MSG_CANCEL_OBJECT_N                = _UxGT("Cancel Object =");
+  LSTR MSG_CANCEL_OBJECT_N                = _UxGT("Cancel Object {");
   LSTR MSG_OUTAGE_RECOVERY                = _UxGT("Outage Recovery");
   LSTR MSG_MEDIA_MENU                     = _UxGT("Print from Media");
   LSTR MSG_NO_MEDIA                       = _UxGT("No Media");
@@ -532,7 +532,7 @@ namespace Language_ro {
   LSTR MSG_MMU2_EJECT_RECOVER             = _UxGT("Remove, click");
 
   LSTR MSG_MIX                            = _UxGT("Mix");
-  LSTR MSG_MIX_COMPONENT_N                = _UxGT("Component =");
+  LSTR MSG_MIX_COMPONENT_N                = _UxGT("Component {");
   LSTR MSG_MIXER                          = _UxGT("Mixer");
   LSTR MSG_GRADIENT                       = _UxGT("Gradient");
   LSTR MSG_FULL_GRADIENT                  = _UxGT("Full Gradient");

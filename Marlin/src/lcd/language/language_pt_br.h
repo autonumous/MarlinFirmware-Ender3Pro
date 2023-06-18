@@ -274,7 +274,7 @@ namespace Language_pt_br {
   LSTR MSG_INIT_EEPROM                    = _UxGT("Iniciar EEPROM");
   LSTR MSG_MEDIA_UPDATE                   = _UxGT("Atualiz. SD");
   LSTR MSG_RESET_PRINTER                  = _UxGT("Resetar Impressora");
-  LSTR MSG_REFRESH                        = LCD_STR_REFRESH  _UxGT("Atualização");
+  LSTR MSG_REFRESH                        = LCD_STR_REFRESH _UxGT("Atualização");
   LSTR MSG_INFO_SCREEN                    = _UxGT("Informações");
   LSTR MSG_PREPARE                        = _UxGT("Preparar");
   LSTR MSG_TUNE                           = _UxGT("Ajustar");
@@ -293,7 +293,7 @@ namespace Language_pt_br {
   LSTR MSG_STOP_PRINT                     = _UxGT("Parar impressão");
   LSTR MSG_PRINTING_OBJECT                = _UxGT("Imprimindo objeto");
   LSTR MSG_CANCEL_OBJECT                  = _UxGT("Cancelar Objeto");
-  LSTR MSG_CANCEL_OBJECT_N                = _UxGT("Cancelar Objeto =");
+  LSTR MSG_CANCEL_OBJECT_N                = _UxGT("Cancelar Objeto {");
   LSTR MSG_OUTAGE_RECOVERY                = _UxGT("Recuperar Impressão");
   LSTR MSG_MEDIA_MENU                     = _UxGT("Imprimir do SD");
   LSTR MSG_NO_MEDIA                       = _UxGT("Sem cartão SD");
