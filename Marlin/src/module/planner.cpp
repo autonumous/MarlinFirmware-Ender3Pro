@@ -1905,13 +1905,13 @@ bool Planner::_populate_block(
     SERIAL_ECHOLNPGM(
       "  _populate_block FR:", fr_mm_s,
       #if HAS_X_AXIS
-        " A:", target.a, " (", dist.a, " steps)"
+        " " STR_A ":", target.a, " (", dist.a, " steps)"
       #endif
       #if HAS_Y_AXIS
-        " B:", target.b, " (", dist.b, " steps)"
+        " " STR_B ":", target.b, " (", dist.b, " steps)"
       #endif
       #if HAS_Z_AXIS
-        " C:", target.c, " (", dist.c, " steps)"
+        " " STR_C ":", target.c, " (", dist.c, " steps)"
       #endif
       #if HAS_I_AXIS
         " " STR_I ":", target.i, " (", dist.i, " steps)"
@@ -2079,11 +2079,11 @@ bool Planner::_populate_block(
 
   /**
    * This part of the code calculates the total length of the movement.
-   * For cartesian bots, the X_AXIS is the real X movement and same for Y_AXIS.
-   * But for corexy bots, that is not true. The "X_AXIS" and "Y_AXIS" motors (that should be named to A_AXIS
-   * and B_AXIS) cannot be used for X and Y length, because A=X+Y and B=X-Y.
-   * So we need to create other 2 "AXIS", named X_HEAD and Y_HEAD, meaning the real displacement of the Head.
-   * Having the real displacement of the head, we can calculate the total movement length and apply the desired speed.
+   * For cartesian bots, the distance along the X axis equals the X_AXIS joint displacement and same holds true for Y_AXIS.
+   * But for geometries like CORE_XY that is not true. For these machines we need to create 2 additional variables, named X_HEAD and Y_HEAD, to store the displacent of the head along the X and Y axes in a cartesian coordinate system.
+   * The displacement of the head along the axes of the cartesian coordinate system has to be calculated from "X_AXIS" and "Y_AXIS" (should be renamed to A_JOINT and B_JOINT)
+   * displacements in joints space using forward kinematics (A=X+Y and B=X-Y in the case of CORE_XY).
+   * Next we can calculate the total movement length and apply the desired speed.
    */
   struct DistanceMM : abce_float_t {
     #if ANY(IS_CORE, MARKFORGED_XY, MARKFORGED_YX)
@@ -2308,6 +2308,10 @@ bool Planner::_populate_block(
   // Example 2: At 120°/s a 60° move involving only rotational axes takes 0.5s. So this will give 2.0.
   float inverse_secs = inverse_millimeters * (
     #if ALL(HAS_ROTATIONAL_AXES, INCH_MODE_SUPPORT)
+      /**
+       * Workaround for premature feedrate conversion
+       * from in/s to mm/s by get_distance_from_command.
+       */
       cartesian_move ? fr_mm_s : LINEAR_UNIT(fr_mm_s)
     #else
       fr_mm_s
@@ -3320,16 +3324,12 @@ void Planner::refresh_positioning() {
 }
 
 // Apply limits to a variable and give a warning if the value was out of range
-inline void limit_and_warn(float &val, const AxisEnum axis, PGM_P const setting_name, const xyze_float_t &max_limit) {
+inline void limit_and_warn(float &val, const AxisEnum axis, FSTR_P const setting_name, const xyze_float_t &max_limit) {
   const uint8_t lim_axis = TERN_(HAS_EXTRUDERS, axis > E_AXIS ? E_AXIS :) axis;
   const float before = val;
   LIMIT(val, 0.1f, max_limit[lim_axis]);
-  if (before != val) {
-    SERIAL_CHAR(AXIS_CHAR(lim_axis));
-    SERIAL_ECHOPGM(" Max ");
-    SERIAL_ECHOPGM_P(setting_name);
-    SERIAL_ECHOLNPGM(" limited to ", val);
-  }
+  if (before != val)
+    SERIAL_ECHOLN(C(AXIS_CHAR(lim_axis)), F(" Max "), setting_name, F(" limited to "), val);
 }
 
 /**
@@ -3348,7 +3348,7 @@ void Planner::set_max_acceleration(const AxisEnum axis, float inMaxAccelMMS2) {
       constexpr xyze_float_t max_accel_edit = DEFAULT_MAX_ACCELERATION;
       const xyze_float_t max_acc_edit_scaled = max_accel_edit * 2;
     #endif
-    limit_and_warn(inMaxAccelMMS2, axis, PSTR("Acceleration"), max_acc_edit_scaled);
+    limit_and_warn(inMaxAccelMMS2, axis, F("Acceleration"), max_acc_edit_scaled);
   #endif
   settings.max_acceleration_mm_per_s2[axis] = inMaxAccelMMS2;
 
@@ -3371,7 +3371,7 @@ void Planner::set_max_feedrate(const AxisEnum axis, float inMaxFeedrateMMS) {
       constexpr xyze_float_t max_fr_edit = DEFAULT_MAX_FEEDRATE;
       const xyze_float_t max_fr_edit_scaled = max_fr_edit * 2;
     #endif
-    limit_and_warn(inMaxFeedrateMMS, axis, PSTR("Feedrate"), max_fr_edit_scaled);
+    limit_and_warn(inMaxFeedrateMMS, axis, F("Feedrate"), max_fr_edit_scaled);
   #endif
   settings.max_feedrate_mm_s[axis] = inMaxFeedrateMMS;
 }
@@ -3390,11 +3390,15 @@ void Planner::set_max_feedrate(const AxisEnum axis, float inMaxFeedrateMMS) {
         #ifdef MAX_JERK_EDIT_VALUES
           MAX_JERK_EDIT_VALUES
         #else
-          { (DEFAULT_XJERK) * 2, (DEFAULT_YJERK) * 2,
-            (DEFAULT_ZJERK) * 2, (DEFAULT_EJERK) * 2 }
+          LOGICAL_AXIS_ARRAY(
+            (DEFAULT_EJERK) * 2,
+            (DEFAULT_XJERK) * 2, (DEFAULT_YJERK) * 2, (DEFAULT_ZJERK) * 2,
+            (DEFAULT_IJERK) * 2, (DEFAULT_JJERK) * 2, (DEFAULT_KJERK) * 2,
+            (DEFAULT_UJERK) * 2, (DEFAULT_VJERK) * 2, (DEFAULT_WJERK) * 2
+          )
         #endif
       ;
-      limit_and_warn(inMaxJerkMMS, axis, PSTR("Jerk"), max_jerk_edit);
+      limit_and_warn(inMaxJerkMMS, axis, F("Jerk"), max_jerk_edit);
     #endif
     max_jerk[axis] = inMaxJerkMMS;
   }
