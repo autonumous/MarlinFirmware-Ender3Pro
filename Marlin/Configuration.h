@@ -61,7 +61,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Autonumous, Ender-3 Pro)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Autonumous, Ender-3 Pro)" // Original author or contributor.
 #define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 // @section machine
@@ -2081,9 +2081,9 @@
         //#define FIL_MOTION8_PULLUP
         //#define FIL_MOTION8_PULLDOWN
       #endif
-    #endif
-  #endif
-#endif
+    #endif // FILAMENT_MOTION_SENSOR
+  #endif // FILAMENT_RUNOUT_DISTANCE_MM
+#endif // FILAMENT_RUNOUT_SENSOR
 
 //===========================================================================
 //=============================== Bed Leveling ==============================
