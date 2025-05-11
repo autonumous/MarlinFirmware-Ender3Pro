@@ -140,6 +140,28 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
 
   preheat_t MarlinUI::material_preset[PREHEAT_COUNT];  // Initialized by settings.load
 
+  void MarlinUI::reset_material_presets() {
+    #define _PITEM(N,T) PREHEAT_##N##_##T,
+    #if HAS_HOTEND
+      constexpr uint16_t hpre[] = { REPEAT2_S(1, INCREMENT(PREHEAT_COUNT), _PITEM, TEMP_HOTEND) };
+    #endif
+    #if HAS_HEATED_BED
+      constexpr uint16_t bpre[] = { REPEAT2_S(1, INCREMENT(PREHEAT_COUNT), _PITEM, TEMP_BED) };
+    #endif
+    #if HAS_HEATED_CHAMBER
+      constexpr uint16_t cpre[] = { REPEAT2_S(1, INCREMENT(PREHEAT_COUNT), _PITEM, TEMP_CHAMBER) };
+    #endif
+    #if HAS_FAN
+      constexpr uint8_t fpre[] = { REPEAT2_S(1, INCREMENT(PREHEAT_COUNT), _PITEM, FAN_SPEED) };
+    #endif
+    for (uint8_t i = 0; i < PREHEAT_COUNT; ++i) {
+      TERN_(HAS_HOTEND,         material_preset[i].hotend_temp  = hpre[i]);
+      TERN_(HAS_HEATED_BED,     material_preset[i].bed_temp     = bpre[i]);
+      TERN_(HAS_HEATED_CHAMBER, material_preset[i].chamber_temp = cpre[i]);
+      TERN_(HAS_FAN,            material_preset[i].fan_speed    = fpre[i]);
+    }
+  }
+
   FSTR_P MarlinUI::get_preheat_label(const uint8_t m) {
     #define _PDEF(N) static PGMSTR(preheat_##N##_label, PREHEAT_##N##_LABEL);
     #define _PLBL(N) preheat_##N##_label,
@@ -1891,40 +1913,60 @@ uint8_t expand_u8str_P(char * const outstr, PGM_P const ptpl, const int8_t ind, 
     #include "extui/ui_api.h"
   #endif
 
-  void MarlinUI::media_changed(const uint8_t old_status, const uint8_t status) {
+  void MarlinUI::media_changed(const MediaPresence old_status, const MediaPresence status) {
     TERN_(HAS_DISPLAY_SLEEP, refresh_screen_timeout());
     if (old_status == status) {
       TERN_(EXTENSIBLE_UI, ExtUI::onMediaError()); // Failed to mount/unmount
       return;
     }
 
-    if (old_status < 2) {   // Skip this section on first boot check
-      if (status) {         // Media Mounted
+    if (old_status > MEDIA_BOOT) {  // Skip this section on first boot check
+
+      if (status > old_status) {    // Media Mounted
+
         #if ENABLED(EXTENSIBLE_UI)
+
           ExtUI::onMediaMounted();
+
         #elif ENABLED(BROWSE_MEDIA_ON_INSERT)
+
           clear_menu_history();
           quick_feedback();
           goto_screen(MEDIA_MENU_GATEWAY);
+
         #else
+
           if (card.isSDCardSelected())
             LCD_MESSAGE(MSG_MEDIA_INSERTED_SD);
           else if (card.isFlashDriveSelected())
             LCD_MESSAGE(MSG_MEDIA_INSERTED_USB);
           else
             LCD_MESSAGE(MSG_MEDIA_INSERTED);
+
         #endif
       }
       else {                // Media Removed
+
         #if ENABLED(EXTENSIBLE_UI)
+
           ExtUI::onMediaRemoved();
-        #elif HAS_SD_DETECT // Q: Does "Media Removed" need to be shown for manual release too?
-          LCD_MESSAGE(MSG_MEDIA_REMOVED);
-          #if HAS_MARLINUI_MENU
-            if (ENABLED(HAS_WIRED_LCD) || !defer_return_to_status) return_to_status();
-          #endif
+
+        #elif HAS_SD_DETECT || HAS_USB_FLASH_DRIVE // Q: Does "Media Removed" need to be shown for manual release too?
+
+          if ((old_status ^ status) & INSERT_SD)
+            LCD_MESSAGE(MSG_MEDIA_REMOVED_SD);
+          else if ((old_status ^ status) & INSERT_USB)
+            LCD_MESSAGE(MSG_MEDIA_REMOVED_USB);
+          else
+            LCD_MESSAGE(MSG_MEDIA_REMOVED);
+
+          if (ENABLED(HAS_WIRED_LCD) || !defer_return_to_status)
+            return_to_status();
+
         #elif HAS_WIRED_LCD
+
           return_to_status();
+
         #endif
       }
     }
