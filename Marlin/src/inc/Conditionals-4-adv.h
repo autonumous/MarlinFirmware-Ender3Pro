@@ -340,7 +340,11 @@
 #endif
 
 // Linear advance uses Jerk since E is an isolated axis
-#if ALL(HAS_JUNCTION_DEVIATION, LIN_ADVANCE)
+#if ALL(FT_MOTION, HAS_EXTRUDERS)
+  #define FTM_HAS_LIN_ADVANCE 1
+#endif
+
+#if HAS_JUNCTION_DEVIATION && ANY(LIN_ADVANCE, FTM_HAS_LIN_ADVANCE)
   #define HAS_LINEAR_E_JERK 1
 #endif
 
