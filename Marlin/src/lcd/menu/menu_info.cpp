@@ -253,7 +253,7 @@ void menu_info_board() {
     STATIC_ITEM_F(F("Compiled:           "));                     // Compiled:
     STATIC_ITEM_F(F(__DATE__ "  " __TIME__));      
     #if ENABLED(CONFIGURABLE_MACHINE_NAME)
-      STATIC_ITEM_C(&machine_name, SS_DEFAULT|SS_INVERT);         // My3DPrinter
+      STATIC_ITEM_C(&marlin.machine_name, SS_DEFAULT|SS_INVERT);  // My3DPrinter
     #else
       STATIC_ITEM_F(F(MACHINE_NAME), SS_DEFAULT|SS_INVERT);       // My3DPrinter
     #endif
